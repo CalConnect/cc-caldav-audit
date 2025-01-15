@@ -1,0 +1,16 @@
+== Conventions Used in This Document
+
+The key words "`MUST`", "`MUST NOT`", "`REQUIRED`", "`SHALL`", "`SHALL NOT`",
+"`SHOULD`", "`SHOULD NOT`", "`RECOMMENDED`", "`MAY`", and "`OPTIONAL`" in this
+document are to be interpreted as described in <<RFC2119>>.
+
+When XML element types in the namespaces "`DAV:`" and
+"`urn:ietf:params:xml:ns:caldav`" are referenced in this document
+outside of the context of an XML fragment, the string "`DAV:`" and
+"`CALDAV:`" will be prefixed to the element type names respectively.
+
+The namespace "http://calendarserver.org/ns/" is used for XML
+elements defined in this specification. When XML element types in
+this namespace are referenced in this document outside of the context
+of an XML fragment, the string "`CS:`" will be prefixed to the element
+type names respectively.

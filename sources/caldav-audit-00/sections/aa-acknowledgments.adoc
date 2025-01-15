@@ -1,0 +1,5 @@
+[acknowledgments]
+== Acknowledgments
+
+This specification is the result of discussions between the Apple
+calendar server and client teams.

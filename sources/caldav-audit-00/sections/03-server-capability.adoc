@@ -1,0 +1,9 @@
+== Server Advertised Capability
+
+A server that supports this specification `MUST` include
+"`calendar-audit`" as a field in the `DAV` response header field from an `OPTIONS`
+request on a calendar home collection (see
+<<RFC4791,section=6.2.1>>).
+Clients `MUST` check for the presence of that field in the
+`DAV` response header field before supporting the extensions in this
+specification.

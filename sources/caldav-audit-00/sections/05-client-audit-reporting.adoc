@@ -1,0 +1,90 @@
+== Client Audit Reporting
+
+When a client detects a CalDAV resource that it has determined to be
+inappropriate for some reason, or as the result of the calendar user
+explicitly indicating that a resource is inappropriate, it can signal
+that state to the server by issuing a `POST` request with the request-
+URI set to the resource URI, and with an "`action=audit-failure`" query
+parameter in the request-URI.
+
+Upon receiving such a request the server `MUST` take the following
+actions:
+
+. If the target resource is a calendar object resource, the server
+`MUST` delete the resource without sending any scheduling reply
+messages. The server `MUST` use the iCalendar UID property value
+in the target resource to:
+
+.. delete any other resources in calendar collections owned by
+the calendar user, or the calendar user's scheduling inbox
+collection, that have the same iCalendar UID property
+
+.. prevent any future scheduling messages with the same
+iCalendar UID being delivered to that calendar user
+
+. If the target resource is a sharing invitation in the calendar
+user's notification collection, the server `MUST` delete the
+notification resource without sending any sharing reply to the
+sharer. The server `MUST` also prevent any future sharing
+invitations for the same calendar collection from being delivered
+to the calendar user.
+
+. The behavior for other types of resource is currently undefined.
+Servers `MUST` reject such requests with an appropriate HTTP 4xx
+status code.
+
+Servers `MAY` perform their own analysis of the resource being reported
+and act on it accordingly, but this specification does not define how
+that is done or what the consequences are.
+
+The audit report `POST` request supports the following request-URI
+query parameters:
+
+.Request-URI query parameters
+[cols=2,options=header]
+|===
+| Name| Description
+| action | this is `REQUIRED` and `MUST` have a value of "`audit-failure`"
+| reason | this is `OPTIONAL` and contains a short string indicating the nature of the failure
+|===
+
+The client `MAY` include other query parameters as needed. The server
+`SHOULD` ignore all query parameters that it cannot process.
+
+On successful completion of the request, the server returns an
+appropriate HTTP 2xx status code. Upon receiving a successful
+response, clients `SHOULD` immediately re-synchronize their state with
+the server to ensure any resources that were removed as a result of
+the `POST` request are also removed from any cache the client might
+have.
+
+If the request fails for any reason, the actions described above
+`MUST NOT` occur, and in particular, no resources are to be deleted.
+
+This specification discards an entire resource - thus there is no
+provision to report inappropriate content in one instance of a
+recurring event since all instances are in the same calendar object
+resource.
+
+=== Example
+
+The client issues a `POST` request to indicate an audit failure on a
+particular resource:
+
+[source%unnumbered]
+----
+>> Request <<
+
+POST /event.ics?action=audit-failure&reason=junk HTTP/1.1
+Host: cal.example.com
+Content-Length: 0
+
+>> Response <<
+
+HTTP/1.1 200 OK
+Date: Fri, 10 Jan 2017 14:02:20 GMT
+Content-Type: text/plain
+Content-Length: xxxx
+----
+
+Report received and acted upon.

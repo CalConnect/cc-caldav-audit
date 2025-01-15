@@ -1,0 +1,10 @@
+== Security Considerations
+
+It is important that no replies whatsoever be sent back to the
+originator of the invitation being discarded. In addition, the
+invite originator `MUST NOT` be given any other indication that the
+invite was discarded.
+
+The server `MUST` protect any information it gets from client audit
+failure reports to prevent attackers from learning how to work around
+client auditing procedures.

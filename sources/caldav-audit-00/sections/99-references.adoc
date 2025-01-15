@@ -1,0 +1,14 @@
+[bibliography,normative=true]
+== Normative References
+
+* [[[RFC2119, RFC 2119]]]
+
+* [[[RFC4791, RFC 4791]]]
+
+* [[[RFC4918, RFC 4918]]]
+
+* [[[RFC5545, RFC 5545]]]
+
+* [[[RFC5546, RFC 5546]]]
+
+* [[[RFC6638, RFC 6638]]]

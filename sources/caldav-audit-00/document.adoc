@@ -1,0 +1,51 @@
+= CalDAV: Auditing Status and Feedback
+:doctype: internet-draft
+:docnumber: caldav-audit-00
+:status: informational
+:ipr: trust200902
+:consensus: true
+:submission-type: IETF
+:area: Internet
+:intended-series: full-standard
+:revdate: 2018-02-21
+:published-date: 2018-02-21
+:fullname: Cyrus Daboo
+:lastname: Daboo
+:forename_initials: C.
+:organization: Apple Inc.
+:role: author
+:street: 1 Infinite Loop
+:city: Cupertino
+:state: CA
+:code: 95014
+:country: USA
+:uri: http://www.apple.com/
+:email: cyrus@daboo.name
+:mn-document-class: ietf
+:mn-output-extensions: rfc,xml,txt,html,rxl
+:technical-committee:
+:workgroup:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/02-conventions.adoc[]
+
+include::sections/03-server-capability.adoc[]
+
+include::sections/04-audit-webdav-property.adoc[]
+
+include::sections/05-client-audit-reporting.adoc[]
+
+include::sections/06-security-considerations.adoc[]
+
+include::sections/07-privacy-considerations.adoc[]
+
+include::sections/08-iana-considerations.adoc[]
+
+include::sections/99-references.adoc[]
+
+include::sections/aa-acknowledgments.adoc[]
+
+include::sections/ab-doc-history.adoc[]
