@@ -1,0 +1,5 @@
+== Privacy Considerations
+
+The server `MUST` protect any information it gets from client audit
+failure reports to prevent calendar users from being "profiled" based
+on what items they consider to be inappropriate.

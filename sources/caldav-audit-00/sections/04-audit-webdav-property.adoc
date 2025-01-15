@@ -1,0 +1,106 @@
+== Audit WebDAV Property
+
+The `CS:audit-status` WebDAV property provides any server side audit
+results, for the resource the property is present on, to the client.
+The value of this property is a string containing one or more comma-
+separated "key=value" pairs that can be used to conveying specific
+details about the audit results. A set of initial keys defined by
+this specification are listed below. Additional keys may be added in
+the future. Servers `SHOULD` only include audit results that are known
+to be useful to clients to avoid having this property grow too large.
+
+Clients that support this extension `SHOULD` request the
+`CS:audit-status` property in any `PROPFIND` or `REPORT` requests that return
+properties for resources on the CalDAV server. In particular,
+calendar object resources will likely all be audited, and so `SHOULD`
+be checked by clients.
+
+Clients `MAY` do their own auditing of resources retrieved from the
+server. Clients are likely to take into consideration locally
+available contextual information when doing client-side auditing,
+information that is typically not available to servers. As a result,
+when the `CS:audit-status` property is present, clients `SHOULD` use it
+in conjunction with, rather than as a replacement of, any client-side
+auditing to determine the overall suitability of the resource.
+
+=== `CS:audit-status`
+
+Name:: `audit-status`
+
+Namespace:: http://calendarserver.org/ns/
+
+Purpose:: Indicates server auditing status for the resource on which
+this property is defined.
+
+Conformance:: This property MAY be present on any resource within a
+CalDAV calendar home collection. If present, it `SHOULD NOT` be
+returned by a `PROPFIND` `DAV:allprop` request (as defined in
+<<RFC4918,section=14.2>>). This is a protected property (as
+defined in <<RFC4918,section=15>>). This property `MUST` be
+preserved when the resource is copied or moved.
+
+Description:: The `CS:audit-status` property provides details of any
+server auditing done for the resource on which it is defined. In
+the absence of this property, clients `MUST` assume that no auditing
+has taken place. The supported key/value pairs defined in this
+specification are listed in the next section.
+
+Definition::
++
+--
+[source%unnumbered]
+----
+<!ELEMENT audit-status CDATA>
+CDATA is a string using the "audit-status" format defined below
+
+audit-status = audit-state *("," audit-state)
+audit-state = audit-key "=" audit-value
+audit-key = token
+audit-value = token / quoted-string
+
+token = ALPHA *(ALPHA / DIGIT / "-")
+quoted-string = DQUOTE *QSAFE-CHAR DQUOTE
+
+QSAFE-CHAR = WSP / %x21 / %x23-7E / NON-US-ASCII
+; Any character except CONTROL and DQUOTE
+
+NON-US-ASCII = UTF8-2 / UTF8-3 / UTF8-4
+; UTF8-2, UTF8-3, and UTF8-4 are defined in [RFC3629]
+
+CONTROL = %x00-08 / %x0A-1F / %x7F
+; All the controls except HTAB
+----
+--
+
+Example::
++
+--
+Note that additional line breaks have been added for readability.
+
+[source%unnumbered]
+----
+<CS:audit-status
+ xmlns:CS="http://calendarserver.org/ns/">
+ status=GOOD,audit-id=51CAA5F8-5C48-45E1-B0E7-3534D7254060
+</CS:audit-status>
+----
+--
+
+=== Audit Status Items
+
+The following `CS:audit-status` key/value pair items are defined by
+this specification. The "status" `MUST` be present, other keys are
+`OPTIONAL`. Clients `SHOULD` ignore any keys that they do not recognize.
+
+.`CS:audit-status` key/value pair items
+[cols=3,options=header]
+|===
+| Key | Value| Description
+
+| status | `GOOD` | Audit result indicates no problem with this resource
+| status | `WARNING` | Audit result indicates a possible problem with this resource
+| status | `BAD` | Audit result indicates a strong possibility of a problem with this resource
+| score | {integer: 0-100} | An integer value in the range 0-100. 0 means the resource is definitely free of problematic content. 100 means the resource definitely contains problematic content. Values in between relate to varying degrees of concern for the resource content.
+| reason | {string} | A textual description of the result of the server audit that can be presented to the user.
+| audit-id | {string} | An opaque identifier used to correlate the reported audit status with the auditing system.
+|===

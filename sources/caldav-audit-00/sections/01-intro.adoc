@@ -1,0 +1,60 @@
+== Introduction
+
+Internet calendaring and scheduling standards are defined by
+iCalendar <<RFC5545>> and iTIP <<RFC5546>>. The CalDAV Access <<RFC4791>>
+standard defines a way to access calendar data stored on a server,
+and the CalDAV Scheduling <<RFC6638>> draft defines how scheduling
+occurs between users of a CalDAV server.
+
+CalDAV calendar users can receive event invitations or sharing
+invitations from other users on the CalDAV server, and in the case of
+event invitations, they may also be received from users outside the
+system (e.g., via an email based gateway service). Unfortunately, as
+has been the case with email for quite some time now, this provides
+an avenue for abuse. In particular, there has recently been an
+increase in so called calendar "spam" (unsolicited bulk event
+invitations - in future referred to as "junk" invitations) that
+automatically appear on a user's calendar. Whilst users can delete
+such invitations, the current default behavior of CalDAV servers is
+to send a scheduling iTIP reply message back to the organizer of the
+invite indicating that the user (who appears as an attendee in the
+invite) has declined the invitation. This is not desirable as it
+signals to the originator that a speculative attendee calendar user
+address they might have used is in fact valid. It is much more
+preferable for the invite to be silently discarded without a reply
+being sent. CalDAV does support such an option via use of the
+"Schedule-Reply" HTTP header (see <<RFC6638,section=8.1>>), however,
+it would be useful to provide an explicit indication from the user to
+the server that a particular invitation is considered inappropriate
+so that the server can use that information to potentially filter
+future invitations that are similar. This type of feedback has been
+used successfully in email systems, typically exposed to users as a
+"report as junk" option in their email clients.
+
+Also, as with email, a server can scan invitations as they are being
+delivered and provide an indication of "junk" status to allow clients
+to filter invitations or provide warnings to the user. Such status
+is usually conveyed in email messages via the addition of email
+message headers during delivery, however, iCalendar invitations
+typically do not include delivery meta-data.
+
+This specification defines the following extensions to CalDAV to help
+provide better junk invitation status and reporting:
+
+* A new `CS:audit-status` WebDAV property is defined for use on any
+resource in a CalDAV server. The value of that property is a
+comma-separated list of "key=value" pairs that can be used to
+convey invitation auditing status from the server to a client.
+
+* A new `POST` request action can be targeted at resources to allow a
+client to report a problem about the resource and trigger the
+server to take appropriate steps (e.g., discard the resource,
+record information about the resource so that it can be
+permanently suppressed).
+
+This specification does not cover how servers or clients analyse
+invitations, but rather it only covers the reporting of such
+analysis. What is considered inappropriate is likely dependent on
+local policies and regulations, which cannot be generally codified.
+It is expected that email scanning tools and techniques can be
+adapted for use with calendar data on both clients and servers.

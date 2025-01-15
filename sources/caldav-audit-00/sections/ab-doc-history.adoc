@@ -1,0 +1,20 @@
+[appendix]
+== metanorma-extension
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value: 2016-12-09
+  amend:
+    - description: |
+        Clarify that clients should never totally rely on the server audit-status result, but instead should always do their own auditing and use the server status as input to that.
+
+        Fix xmlns value used in examples.
+
+        Remove reference to client reporting on the inbox scheduling resource.
+
+        Indicate that servers can implement their own procedures for analyzing invites reported by the client - but those are out of scope of this spec.
+----
