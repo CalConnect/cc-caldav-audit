@@ -1,0 +1,54 @@
+= CalConnect Standard: CalDAV: Auditing Status and Feedback
+:title: Calendaring and scheduling -- CalDAV Auditing Status and Feedback
+:fullname: Cyrus Daboo
+:firstname: Cyrus
+:lastname: Daboo
+:forename_initials: C.
+:organization: Apple Inc.
+:role: author
+:street: 1 Infinite Loop
+:city: Cupertino
+:state: CA
+:code: 95014
+:country: USA
+:uri: http://www.apple.com/
+:email: cyrus@daboo.name
+:docnumber: 51016
+:copyright-year: 2018
+:language: en
+:doctype: standard
+:edition: 1
+:status: committee-draft
+:revdate: 2018-02-21
+:published-date: 2018-02-21
+:script: Latn
+:technical-committee: CALENDAR
+:imagesdir: images
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/02-conventions.adoc[]
+
+include::sections/03-server-capability.adoc[]
+
+include::sections/04-audit-webdav-property.adoc[]
+
+include::sections/05-client-audit-reporting.adoc[]
+
+include::sections/06-security-considerations.adoc[]
+
+include::sections/07-privacy-considerations.adoc[]
+
+include::sections/08-iana-considerations.adoc[]
+
+include::sections/99-references.adoc[]
+
+include::sections/aa-acknowledgments.adoc[]
+
+include::sections/ab-doc-history.adoc[]
