@@ -1,0 +1,10 @@
+---
+metanorma:
+  source:
+    files:
+    - sources/cc-51016.adoc
+    - sources/draft-caldav-audit-00.adoc
+
+  collection:
+    organization: CalConnect
+    name: "CalDAV: Auditing Status and Feedback"
