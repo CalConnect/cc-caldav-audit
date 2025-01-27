@@ -1,6 +1,6 @@
 = CalDAV: Auditing Status and Feedback
 :doctype: internet-draft
-:docnumber: caldav-audit-00
+:docnumber: draft-caldav-audit-00
 :status: informational
 :ipr: trust200902
 :consensus: true
@@ -23,7 +23,7 @@
 :email: cyrus@daboo.name
 :mn-document-class: ietf
 :mn-output-extensions: rfc,xml,txt,html,rxl
-:technical-committee:
+:technical-committee: CALENDAR
 :workgroup:
 
 include::sections/00-abstract.adoc[]
